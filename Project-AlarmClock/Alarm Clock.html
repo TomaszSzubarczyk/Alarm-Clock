@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+	<title>Alarm Clock</title>
+	<meta charset="utf-8">
+	<style>
+		
+	
+body {
+	background-image: radial-gradient(black 15%, white 120%);
+	font-size: 100%;
+}
+
+div#Main {
+	position: absolute;
+	width: 100%;
+	height: 100px;
+}
+
+div#musicTime {
+top: 0px;
+left: 0px;
+  width: 1000px;
+  height: 80px;
+  padding-left: 15px;
+  padding-top: 20px;
+  display: block;
+}
+
+div#clock {
+
+  width :100%;
+  height: 300px;
+  top: 100px;
+  left: 0px;
+  position: relative;
+  padding-left: 15px;
+}
+
+div#viewAlarm {
+	background-image: radial-gradient(white -50%, yellow 150%);
+	height: 50px;
+	width: 200px;
+	margin-left: 400px;
+	margin-top: 200px;
+	text-align: center;
+	padding-top: 3px;
+
+}
+
+img.h {
+	margin-top: 50px;
+	width: 200px;
+	height: 250px;
+	display : block;
+	float: left;
+}
+
+img.m {
+	margin-top: 50px;
+	width: 200px;
+	height: 250px;
+	display : block;
+	float: left;
+}
+
+img#colon {
+	margin-top: 50px;
+	width: 200px;
+	height: 250px;
+	display: block;
+	float: left;
+}
+
+form select#select_song {
+	width: 350px;
+}
+
+div form input#SelectTime {
+	width: 150px;
+	font-style: italic;
+}
+
+div#Turtorial {
+	background-color: lightgrey;
+	width: 250px;
+	float: right;
+	border: 1px solid;
+	display: none;
+}
+
+div div.TurtorialIcon {
+	top: 0px;
+	right: 0px;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+
+div div#button2 {
+	right: 700px;
+	top: 0px;
+	position: absolute;
+}
+div div#button3 {
+	right: 700px;
+	top: 0px;
+	position: absolute;
+	display: none;
+}
+
+	</style>
+
+
+</head>
+
+<body>
+<div id="Main">
+<div id="musicTime">
+	<form>
+		<label for="select_song">Select song</label>
+		<select id="select_song">
+			<option value="Codzienność">Codzienność</option>
+			<option value="Pociąg">Pociąg</option>
+			<option value="Stres">Stres</opcion>
+			<option value="Śpiąca Jola">Śpiąca Jola</option>
+			<option value="Wstawiaj nie marudź">Wstawiaj nie marudź</option>
+		</select>
+		<label for="SelectTime">Select time</label>
+    	<input type="time" name="TimeName" id="SelectTime" >
+    	<input type="button" id="button" value="confrim">
+    </form>
+ </div>
+   		<div id="button2" class=ON/OFF><img src="image/OFF2.jpg" width="100" height="100">
+   		
+		</div>
+		<div id="button3" class=ON/OFF><img id="imageON" src="image/ON2.jpg" width="100" height="100">
+   		
+		</div>
+		<div id="TurtorialImage" class="TurtorialIcon"><img src="image/Tutorial.jpg" width="100" height="100">
+		</div>
+
+</div>
+
+
+<div id="clock">
+ 	<img class="h" src="image/0.jpg">
+  	<img class="h" src="image/0.jpg">
+
+  	<img id="colon" src="image/colon.jpg">
+
+  	<img class="m" src="image/0.jpg">
+  	<img class="m" src="image/0.jpg">
+
+ 	<div id="Turtorial">
+  		<ol>
+  			<li>Select song</li>
+  			<li>Enter time alarm and confrim</li>
+  			<li>Press the key from ON to OFF</li>
+  		</ol>
+	</div>
+
+ </div>
+
+ <div id="viewAlarm" value="">
+  		<p>Alarm time</p>
+ </div>
+ 
+  <audio id="audioplay" class="play">
+  	<source class="music" id="Codzienność" src="muzyka/Codzienność.mp3" type="audio/mp3">
+  </audio>
+  <audio id="audioplay" class="play">
+  	<source class="music" id="Pociąg" src="muzyka/Pociąg.mp3" type="audio/mp3">
+  </audio>
+  <audio id="audioplay" class="play">
+  	<source class="music" id="Stres" src="muzyka/Stres.mp3" type="audio/mp3">
+  </audio>
+  <audio class="play">
+  	<source class="music" id="Śpiąca Jola" src="muzyka/Śpiąca Jola.mp3" type="audio/mp3">
+  </audio>
+  <audio class="play">
+  	<source class="music" id="Wstawiaj nie marudź" src="muzyka/Wstawiaj nie marudź.mp3" type="audio/mp3">
+  </audio>
+
+<script src="JQuery/jquery-3.3.1.min.js"></script>
+<script>
+
+var list = new Array();
+
+
+$(document).ready(function () {
+	
+
+
+	$("#button").on("click", function () {
+		list.pop(valueTime);
+		var valueTime = $("#SelectTime").val();
+		list.push(valueTime);
+
+		moveTime ();
+			
+	})
+
+	FTime();
+	animacionTurtorial();
+	
+
+	$("#button2").on("click", function Alarm () {
+		var ads = document.getElementById("select_song").options[document.getElementById("select_song").selectedIndex].value
+
+		var AlarmTimeValue = $("#viewAlarm p").text();
+		var CurrentTime = new Date();
+		var CurrentTimeValue = CurrentTime.toLocaleTimeString().substring(0,5);
+		var songList = document.getElementsByClassName("music");
+		
+		
+		
+		if (AlarmTimeValue == CurrentTimeValue) {
+		
+		for (var i=0; i<songList.length; i++) {
+			var songlast=songList[i].id;
+			if (songlast==ads) {
+				var $play = $(".play")[i].play();			
+			}
+		}
+		}else {
+				setInterval(Alarm,1000);
+			}
+		
+	});
+	$("#button2").on("click", function () {
+		var $BlokChange = $("#button3").css({"display": "block"});
+		if ($BlokChange) {
+			$("#button3").on("click", function () {
+				 $("#button3").css({"display": "none"});
+			})
+		}
+	});
+	
+});
+
+
+function FTime() {
+	
+
+	var data = new Date();
+	var hour = data.getHours();
+	var minutes = data.getMinutes();
+
+
+	change("h", "image/", hour);
+	change("m", "image/", minutes);
+
+
+	setTimeout(FTime, 1000);
+	
+}
+
+function change (classT, path, valueT) {
+
+
+	var imageClock1= document.getElementsByClassName(classT);
+	imageClock1[0].setAttribute("src", path + Math.floor(valueT/10)+".jpg");
+	imageClock1[1].setAttribute("src", path + valueT%10 +".jpg");
+
+}
+function moveTime () {
+
+	var $timealarm = $("#viewAlarm p").val();
+	$timealarm = list;
+	$("#viewAlarm p").html($timealarm);
+	$("#viewAlarm").css({"background-image": "radial-gradient(white -50%, red 150%)"});
+	if ($timealarm =="") {
+		$("#viewAlarm").css({"background-image": "radial-gradient(white -50%, yellow 150%)"}).html("<p>Alarm time</p>");
+	
+	}
+}
+
+function animacionTurtorial() {
+	$("#TurtorialImage").click( function() {
+		if ($("#Turtorial").is(":hidden")) {
+			$("#Turtorial").slideDown("slow");
+		}else {
+			$("#Turtorial").slideUp("slow");
+		}
+		
+	})
+};
+
+
+</script>
+</body>
+</html>
+
+
