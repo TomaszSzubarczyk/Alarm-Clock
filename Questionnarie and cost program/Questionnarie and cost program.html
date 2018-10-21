@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Questionnarie and a program that counts expenses  </title>
+	<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
+<style>
+	.container {
+		margin-left: 150px;
+		margin-top: 50px;
+	}
+	h2.color {
+		color: blue;
+		margin-bottom: 40px; 
+	}
+	span.Name {
+		margin-left: 15px;
+	}
+	span.adres {
+		margin-left: 15px;
+	}
+	div.inputname {
+		margin-bottom: 10px;
+	}
+	div.inputemail {
+		margin-bottom: 10px;
+		margin-top: 10px;
+	}
+	div.persons {
+		margin-top: 20px;
+	}
+	span.password {
+		margin-left: 15px;
+		
+	}
+	div.inputpassword {
+		margin-bottom: 10px;
+		margin-top: 10px;
+	}
+	div.sendData {
+		width: 300px;
+		height: 35px;
+		margin-top: 50px;
+		border: 1px solid;
+		padding: 10px;
+	}
+	div.title2 {
+		margin-top: 50px;
+	}
+	div.filtr {
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	input.AllAttraction {
+		margin-left: 10px;
+		margin-top: 10px;
+		margin-right: 10px;
+	}
+	#cash {
+		color:green;
+		font-size: 30px;
+	}
+	span.send {
+		color: green;
+	}
+
+
+</style>
+</head>
+
+<body ng-app="filtersApp">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<div ng-controller="FilterCtrl as ctrl">
+	<div class="container">
+		<div class="heading">
+			<div class="title">
+				<a name="Ankieta">
+					<h2 class="color">
+					QUESTIONNARIE
+					</h2>
+				</a>
+			</div>
+		</div>
+	<span class="send" ng-show="sendDataNow">
+		<h2> We received your data</h2>
+	</span>
+
+	<form ng-submit="ctrl.submit1()" name="simpleForm">
+		<div class="inputname">
+			<input type="text"
+					name="uname"
+           			ng-model="ctrl.user1.yourname"
+           			required>
+
+	<span class="Name">Give your name</span>
+		</div> 
+		<div ng-messages="simpleForm.uname.$error"
+         	 ng-messages-include="error-messages">
+		</div>   
+ 	
+		<div class="inputemail">
+			<input type="email"
+          			name="unames"
+           			ng-model="ctrl.user1.username"
+           			required
+           			ng-minlength="6">
+	<span class="adres">Give your adres @</span>
+		</div>
+	
+    	<div ng-messages="simpleForm.unames.$error"
+         	 ng-messages-include="error-messages">
+       </div>
+
+		<div class="inputpassword">
+    		<input type="password"
+           			name="pwd"
+           			ng-model="ctrl.user1.password"
+           			required>
+    <span class=password> Give your password</span>
+		</div>
+
+    	<div ng-messages="simpleForm.pwd.$error"
+         	 ng-messages-include="error-messages">
+		</div>
+
+
+
+<h4>How did you find our offer</h4>
+	<label for="checkbox1">Newspaper</label>
+	<input type="checkbox" name="checkbox" id="checkbox1" class="source">
+	<label for="checkbox2">Internet</label>
+	<input type="checkbox" name="checkbox" id="checkbox2" class="source">
+	<label for="checkbox3">Radio</label>
+	<input type="checkbox" name="checkbox" id="checkbox3" class="source">
+	<label for="checkbox4">Biliboard</label>
+	<input type="checkbox" name="checkbox" id="checkbox4" class="source">
+	<label for="checkbox5">From friends</label>
+	<input type="checkbox" name="checkbox" id="checkbox5" class="source">
+
+		<div class="persons">
+			<label for="number">
+				<h4>With how many people you will come to us</h4>
+			</label>
+				<select name="number id="number">
+					<option>Alone</option>
+					<option selected="selected">1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+					<option>13</option>
+				</select>
+		</div>
+
+		<div class="age"><h4>You are over 18 years old?</h4>
+			<label for="choiceMoreThan18">YES</label>
+				<input type="checkbox" 
+						id="choiceMoreThan18" 
+						name="checkbox" 
+						class="class18" 
+						ng-click="toggle=!toggle">
+		</div>
+
+	
+    	<div class="sendData">
+    		<input type="reset"  
+           			value="SEND"
+					ng-disabled="simpleForm.$invalid"
+					ng-click="sendDataNow=!nothing">
+
+	<span> You finished? then press me</span>
+    	</div>
+  </form>
+<br>
+
+
+		<div class="title2">
+			<a name="Ankieta">
+				<h2 class="color">
+					PROGRAM THAT COUNTS EXPANSES
+				</h2>
+			</a>
+		</div>
+
+		<div id="selectionOfAttractions">
+			<input type="radio" 
+					id="radio1" 
+					name="choiceOfFun" 
+					ng-click="ctrl.currentFilter='object1'">
+				<label for="radio1">Fun</label>
+
+			<input type="radio" 
+					id="radio2" 
+					name="choiceOfFun" 
+					ng-click="ctrl.currentFilter='object2'">
+				<label for="radio2">Food</label>
+
+
+			<input type="radio" 
+					id="radio3" 
+					name="choiceOfFun" 
+					ng-click="ctrl.currentFilter='object3'">
+				<label for="radio3">Drinking</label>
+
+
+
+			<input type="radio" 
+					id="radio4" 
+					name="choiceOfFun" 
+					onclick="myFunction()", 
+					ng-click="ctrl.currentFilter='object4'">
+				<label ng-show ="toggle" for="radio4">Only for adults</label>
+
+
+		</div>
+
+		<div>
+			<p id="result"> 
+				<b><h3>There are your expanse <span id="cash">{{ctrl.expanseTotal()}}</h3>span> </h3>
+				</b>
+			</p>
+		</div>
+
+		<div class="filtr">
+			<h4>Text filter</h4>
+				<input type="text"
+						ng-model="ctrl.filterOptions['string']">
+		</div>
+
+		<div ng-repeat="outlay in ctrl.expenses |
+						filter:ctrl.filterOptions[ctrl.currentFilter] |
+						orderBy: ctrl.sortOrder">
+			<input class="AllAttractions" type="checkbox"
+					ng-model="outlay.chosen"
+					ng-true-value="'YES'"
+					ng-false-value="'NO'"
+					ng-change="ctrl.expanseTotal()">
+				
+{{outlay.game}} - {{outlay.price}}
+
+
+		</div>
+
+	</div>
+</div>
+
+
+<script>
+
+$(document).ready( function() {
+
+$('#selectionOfAttractions').buttonset();
+$('.source').checkboxradio();
+$('.class18').checkboxradio();
+$('input[type=reset]').button();
+});
+
+function myFunction() {
+return alert("How? you really are more then 18 years old?")
+}
+</script>
+
+<script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js">
+</script>
+
+<script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js">
+</script>
+
+<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular-messages.js">
+</script>
+
+
+<script type="text/ng-template" id="error-messages">
+  <div ng-message="required">This area is obligatory</div>
+  <div ng-message="minlength">Too few characters entered</div>
+  <div ng-message="email">Enter a valid emali</div>
+
+</script>
+
+<script type="text/javascript">
+angular.module('filtersApp', ['ngMessages'])
+.controller('FilterCtrl', [function () {
+var self=this;
+this.expanseTotal = function () {	
+	var table =[];
+	var result =0;
+		angular.forEach(self.expenses, function(value, key) {
+			if (value.chosen== "YES") {
+				table.push(value.price.substring(0,4));	
+			}
+			})
+			for (var i=0; i<table.length; i++) {
+				result +=parseFloat(table[i]);
+	}
+		return (result + ' zl');
+}
+self.submit1= function() {
+console.log('The user has approved the form with the data', self.user1);
+};
+self.expenses = [
+{game:'chocolate ice cream', type:'meal', price:'3.5 zl', chosen : 'NO'},
+{game:'tropical ice cream', type:'meal', price:'5.0 zl', chosen : 'NO'},
+{game:'tropical ice cream', type:'meal', price:'3.0 zl', chosen : 'NO'},
+{game:'Smurf ice cream', type:'meal', price:'5 zl', chosen : 'NO'},
+{game:'caramel ice cream', type:'meal', price:'4.5 zl', chosen : 'NO'},
+{game:'cookie ice cream', type:'meal', price:'3.20 zl', chosen : 'NO'},
+{game:'lemon ice cream', type:'meal', price:'2.50 zl', chosen : 'NO'},
+{game:'Hot-Dog', type:'meal', price:'4 zl', chosen : 'NO'},
+{game:'Chessburger', type:'meal', price:'5.5 zl', chosen : 'NO'},
+{game:'French fries', type:'meal', price:'3 zl', chosen : 'NO'},
+{game:'currant cake', type:'meal', price:'6.0 zl', chosen : 'NO'},
+{game:'pineapple cake', type:'meal', price:'8.0 zl', chosen : 'NO'},
+{game:'banana cake', type:'meal', price:'7.0 zl', chosen : 'NO'},
+{game:'cotton candy', type:'meal', price:'1.5 zl', chosen : 'NO'},
+{game:'Coca - Cola', type:'meal', price:'4.0 zl', chosen : 'NO'},
+{game:'Pepsi', type:'coldDrink', price:'3.99 zl', chosen : 'NO'},
+{game:'Sprite', type:'coldDrink', price:'3.5 zl', chosen : 'NO'},
+{game:'Orange', type:'coldDrink', price:'1.7 zl', chosen : 'NO'},
+{game:'natural apple juice', type:'coldDrink', price:'5.0 zl', chosen : 'NO'},
+{game:'natural orange juice', type:'coldDrink', price:'5.70 zl', chosen : 'NO'},
+{game:'natural mandarin juice', type:'coldDrink', price:'6.0 zl', chosen : 'NO'},
+{game:'dumplings ping ping', type:'meal', price:'8.0 zl', chosen : 'NO'},
+{game:'Pancakes',type:'meal', price:'4.0 zl', chosen : 'NO'},
+{game:'Roley coster', type:'play', price:'2 zl', chosen : 'NO'},
+{game:'slide', type:'play', price:'1.5 zl', chosen : 'NO'},
+{game:'magical mirrors', type:'play', price:'1.0 zl', chosen : 'NO'},
+{game:'cars', type:'play', price:'2.0 zl', chosen : 'NO'},
+{game:'land of animals', type:'play', price:'1.0 zl', chosen : 'NO'},
+{game:'haunted house', type:'play', price:'2 zl', chosen : 'NO'},
+{game:'owls house', type:'play', price:'1.0 zl', chosen : 'NO'},
+{game:'running through obstacles for children', type:'play', price:'0.50 zl', chosen : 'NO'},
+{game:'spinning wheel', type:'play', price:'1.4 zl', chosen : 'NO'},
+{game:'squares and obstacles', type:'play', price:'4.0 zl', chosen : 'NO'},
+{game:'heros hammer', type:'play', price:'2.0 zl', chosen : 'NO'},
+{game:'cups and cookies', type:'play', price:'3.0 zl', chosen : 'NO'},
+{game:'princesses factory', type:'play', price:'5.0 zl', chosen : 'NO'},
+{game:'Rainbow colors', type:'play', price:'2.5 zl', chosen : 'NO'},
+{game:'safari with bicycles', type:'play', price:'4.0 zl', chosen : 'NO'},
+{game:'sunny square', type:'play', price:'3.0 zl', chosen : 'NO'},
+{game:'on the trail of a wild animal', type:'play', price:'4.0 zl', chosen : 'NO'},
+{game:'swimming pool', type:'ForAdults', price:'12.0 zl', chosen : 'NO'},
+{game:'massages', type:'ForAdults', price:'37.0 zl', chosen : 'NO'},
+{game:'Spa', type:'ForAdults', price:'40.0 zl', chosen : 'NO'},
+{game:'cafeteria', type:'ForAdults', price:'9.0 zl', chosen : 'NO'},
+{game:'slide for adults', type:'ForAdults', price:'8.0 zl', chosen : 'NO'},
+{game:'foam salon', type:'ForAdults', price:'9.0 zl', chosen : 'NO'},
+{game:'mini motorcycles', type:'ForAdults', price:'12.0 zl', chosen : 'NO'},
+{game:'mini cars', type:'ForAdults', price:'14.0 zl', chosen : 'NO'},
+{game:'Quad - Afryka', type:'ForAdults', price:'100.0 zl', chosen : 'NO'}
+];
+
+this.sortOrder = ['+type', '-labe'];
+this.filterOptions = {
+"string" : '',
+"object1" : {type: 'play'},
+"object2" : {type: 'meal'},
+"object3" : {type: 'coldDrink'},
+"object4" : {type: 'ForAdults'}
+};
+this.currentFilter = 'string';
+}]);
+</script>
+</body>
+</html>
